@@ -37,7 +37,7 @@ This is a template for JavaScript module projects.
 - onReady: function
 - onChange: function(argument: name of function which called it)
 - onDisableSpeedChange: function
-- rewindOnPause: boolean
+- rewindOnPlay: boolean
 
 ## Methods
 

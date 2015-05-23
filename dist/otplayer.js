@@ -8,7 +8,7 @@ var oTplayer = function(opts){
     this.container = opts.container;
     this.buttons = opts.buttons || {};
     this.skipTime = opts.skipTime || 1.5;
-    this._rewindOnPause = opts.rewindOnPause || true;
+    this._rewindOnPlay = opts.rewindOnPlay || true;
     this._onReady = opts.onReady || function(){};
     this._onChange = opts.onChange || function(){};
     this._setupSpeed(opts);
@@ -127,7 +127,7 @@ oTplayer.prototype.pause = function(){
 };
 oTplayer.prototype.play = function(){
     var playPauseButton = $(this.buttons.playPause);
-    if (this._rewindOnPause) {
+    if (this._rewindOnPlay) {
         this.skip('backwards');
     }
     playPauseButton.addClass('playing');
