@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>QUnit Example</title>
+  <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.16.0.css">
+</head>
+<body>
+
+    <div id="media"></div>
+    <div id="player-hook"></div>
+    <div id="player-time"></div>
+    <input id="slider" type="range">
+
+    <button class="playPause">play/pause</button>
+    
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+  <script src="http://code.jquery.com/qunit/qunit-1.16.0.js"></script>
+  <script src="../dist/otplayer.js" type="text/javascript" charset="utf-8"></script>
+  <script>
+
+    QUnit.test( "Error without source", function( assert ) {
+        var opts = {
+            container: $('#media')[0]
+        }
+        assert.throws(function(){
+            var player = new oTplayer(opts);
+        });
+    });
+
+    QUnit.test( "Error without container", function( assert ) {
+        var opts = {
+            source: 'http://ejb.github.io/progressor.js/demos/echoplex.mp3'
+        }
+        assert.throws(function(){
+            var player = new oTplayer(opts);
+        });
+    });
+
+    QUnit.test( "Initialise with speed slider", function( assert ) {
+        var done = assert.async();
+        var opts = {
+            source: 'http://ejb.github.io/progressor.js/demos/echoplex.mp3',
+            container: $('#media')[0],
+            buttons: {
+                speedSlider: $('#slider')[0]
+            },
+            onReady: function(){
+                assert.equal( $('#slider').attr('min'), 0.5 );
+                done();
+                this.reset();
+            }
+        }
+        var player = new oTplayer(opts);
+    });
+
+
+    QUnit.test( "Initialise with MP3 URL", function( assert ) {
+        var done = assert.async();
+        var opts = {
+            source: 'http://ejb.github.io/progressor.js/demos/echoplex.mp3',
+            container: $('#media')[0],
+            onReady: function(){
+                assert.ok( this !== undefined );
+                done();
+                this.reset();
+            }
+        }
+        var player = new oTplayer(opts);
+    });
+
+
+    QUnit.test( "Initialise with start point", function( assert ) {
+        var done = assert.async();
+        var opts = {
+            source: 'http://ejb.github.io/progressor.js/demos/echoplex.mp3',
+            container: $('#media')[0],
+            startpoint: 30,
+            onReady: function(){
+                var that = this;
+                setTimeout(function(){
+                    assert.equal( that.getTime(), 30 );
+                    done();
+                    that.reset();
+                },50);
+            }
+        }
+        var player = new oTplayer(opts);
+        assert.equal( player._startPoint, 30 );
+    });
+
+
+    QUnit.test( "onChange works", function( assert ) {
+        var done = assert.async();
+        var opts = {
+            source: 'http://ejb.github.io/progressor.js/demos/echoplex.mp3',
+            container: $('#media')[0],
+            onChange: function(event){
+                assert.equal( event, 'skipTo' );
+                done();
+                this.reset();
+            }
+        }
+        var player = new oTplayer(opts);
+        player.skipTo(10);
+    });
+   
+
+  </script>
+</body>
+</html>

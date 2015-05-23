@@ -1,0 +1,20 @@
+{
+  "name": "otplayer",
+  "version": "1.0.0",
+  "authors": [
+    "ejb <mail@elliotbentley.com>"
+  ],
+  "description": "Audio (and video) player for oTranscribe",
+  "main": "dist/otplayer.js",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

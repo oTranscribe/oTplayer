@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>QUnit Example</title>
+  <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.16.0.css">
+</head>
+<body>
+
+    <div id="media"></div>
+    <div id="player-hook"></div>
+    <div id="player-time"></div>
+    <input id="slider" type="range">
+
+    <button class="playPause">play/pause</button>
+    
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+  <script src="http://code.jquery.com/qunit/qunit-1.16.0.js"></script>
+  <script src="../dist/otplayer.js" type="text/javascript" charset="utf-8"></script>
+  
+  <script>
+  
+    // PhantomJS doesn't support bind yet
+    Function.prototype.bind = Function.prototype.bind || function (thisp) {
+        var fn = this;
+        return function () {
+            return fn.apply(thisp, arguments);
+        };
+    }; 
+
+    QUnit.test( "Initialise with YouTube URL", function( assert ) {
+        var done = assert.async();
+        var opts = {
+            source: 'https://www.youtube.com/watch?v=d3IidGmVLo4',
+            container: $('#media')[0],
+            onReady: function(){
+                assert.equal( this.format, 'youtube' );
+                done();
+                this.reset();
+            }
+        }
+        var player = new oTplayer(opts);
+    });
+    
+    /*
+
+    QUnit.test( "YouTube, second time", function( assert ) {
+        
+        var done = assert.async();
+        var opts = {
+            source: 'https://www.youtube.com/watch?v=d3IidGmVLo4',
+            container: $('#media')[0],
+            onReady: function(){
+                assert.equal( this.format, 'youtube' );
+                done();
+                this.reset();
+            }
+        }
+        var player = new oTplayer(opts);
+    });
+   
+    QUnit.test( "Initialise with YouTube URL and start time", function( assert ) {
+        var done = assert.async();
+        var opts = {
+            source: 'https://www.youtube.com/watch?v=UetSeZtrY2s',
+            container: $('#media')[0],
+            startpoint: 30,
+            onReady: function(){
+                console.log(this)
+                assert.equal( this.getTime(), 30 );
+                done();
+                // this.reset();
+            }
+        }
+        var player = new oTplayer(opts);
+    });
+   
+   */
+
+  </script>
+</body>
+</html>
