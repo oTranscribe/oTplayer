@@ -162,6 +162,7 @@ oTplayer.prototype.skipTo = function(time){
     }
     this._onChange('skipTo');
 };
+oTplayer.prototype.setTime = oTplayer.prototype.skipTo;
 oTplayer.prototype.skip = function(direction){
     var mod = 1;
     if (direction === "backwards"){

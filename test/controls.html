@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>QUnit Example</title>
+  <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.16.0.css">
+</head>
+<body>
+
+    <div id="media"></div>
+    <div id="player-hook"></div>
+    <div id="player-time"></div>
+    <input id="slider" type="range">
+
+    <button class="playPause">play/pause</button>
+    
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+  <script src="http://code.jquery.com/qunit/qunit-1.16.0.js"></script>
+  <script src="../dist/otplayer.js" type="text/javascript" charset="utf-8"></script>
+  <script>
+
+    QUnit.test( "skipTo and setTime do the same thing", function( assert ) {
+        assert.expect(4);
+        var done = assert.async();
+        var tests = 0;
+        var opts = {
+            source: 'http://ejb.github.io/progressor.js/demos/echoplex.mp3',
+            container: $('#media')[0],
+            onChange: function(event){
+                assert.equal( event, 'skipTo' );
+                assert.equal( this.getTime(), 10 );
+                tests++;
+                if (tests > 1) {
+                    this.reset();
+                    done();
+                }
+            }
+        }
+        var player = new oTplayer(opts);
+        player.skipTo(10);
+        setTimeout(function(){
+            player.setTime(10);
+        },10);
+    });
+   
+
+  </script>
+</body>
+</html>

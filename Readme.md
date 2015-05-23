@@ -56,6 +56,7 @@ This is a template for JavaScript module projects.
     - 'reset'
     - number (eg. 0.5, 1, 2)
 - getTime
+- setTime (same as skipTo)
 - getDuration
 - parseYoutubeURL
 
