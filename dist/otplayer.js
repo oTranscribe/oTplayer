@@ -40,7 +40,11 @@ var oTplayer = function(opts){
         if (this.source.indexOf) {
             // URL string detected
             url = this.source;
-            this.format = 'audio';
+            if (this._isVideoFormat(url)) {
+                this.format = 'video';
+            } else {
+                this.format = 'audio';
+            }
             this.title = url.split('/')[url.split('/').length];
         } else {
             // assume file upload
@@ -77,6 +81,13 @@ oTplayer.prototype._setupSpeed = function(opts){
         
 };
 
+
+oTplayer.prototype._isVideoFormat = function(url){
+    var urlSplt = url.split('.');
+    var format = urlSplt[urlSplt.length-1];
+    return !!format.match(/mov|mp4|avi|webm/);
+};
+
 oTplayer.prototype._setSpeedIncrement = function(incr){
     this.speedIncrement = incr;
     if (this.buttons.speedSlider) {
@@ -85,7 +96,7 @@ oTplayer.prototype._setSpeedIncrement = function(incr){
 };
 
 oTplayer.prototype._initProgressor = function(){
-    if (typeof Progressor !== 'undefined') {
+    if ((typeof Progressor !== 'undefined') && (this.format !== 'youtube')) {
         this.progressBar = new Progressor({
             media : this.element,
             bar : $('#player-hook')[0],
@@ -106,7 +117,11 @@ oTplayer.prototype._buildMediaElement = function(url){
     this.element = document.createElement( this.format );
     this.element.src = url;
     this.element.id = 'oTplayerEl';
-    this.container.appendChild(this.element); 
+    if (this.format === 'video') {
+        document.body.appendChild(this.element);
+    } else {
+        this.container.appendChild(this.element); 
+    }
 };
 oTplayer.prototype.remove = function(){
     $(this.element).remove();
@@ -220,9 +235,7 @@ oTplayer.prototype.reset = function(){
     if (this.progressBar) {
         try {
             this.progressBar.remove();
-        } catch (err) {
-            console.log(err);
-        }
+        } catch (err) {}
     }
     $('#oTplayerEl').remove();
     $('#player-time').show();

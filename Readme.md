@@ -1,30 +1,18 @@
-# Blank module template
+# oTplayer
 
-This is a template for JavaScript module projects.
-
-## Repo structure
-
-- dist: Production-ready files
-- src: Uncompiled source
-- test: Unit tests
-- examples: Demos of plugin in action
-
-## Building dist folder
-
-- Install [Node and npm](https://nodejs.org) and [Grunt](http://gruntjs.com)
-- Run `npm install`
-- Run `grunt`
-
-## Running tests
-
-- Build dist folder
-- Run `grunt test`
+HTML5 audio/video player for oTranscribe. Requires jQuery and progressor.js.
 
 
+## How to use
 
+```js
+var player = new oTplayer({
+  source: 'http://example.com/my-file.mp3',
+  container: document.querySelector('.player-container')
+});
+```
 
-
-## Options (* = required)
+### Options (* = required)
 
 - source * (file or media URL)
 - startpoint (number, seconds)
@@ -40,7 +28,7 @@ This is a template for JavaScript module projects.
 - onDisableSpeedChange: function
 - rewindOnPlay: boolean
 
-## Methods
+### Methods
 
 - reset
 - remove (same as reset)
@@ -62,10 +50,22 @@ This is a template for JavaScript module projects.
 - parseYoutubeURL (don't need to initialise a new object to use)
 
 
-## Read-only properties
+### Read-only properties
 
 - progressBar (progressor instance)
 - speedChangeDisabled
 - paused
+
+
+## Building dist folder
+
+- Install [Node and npm](https://nodejs.org) and [Grunt](http://gruntjs.com)
+- Run `npm install`
+- Run `grunt`
+
+## Running tests
+
+- Build dist folder
+- Run `grunt test`
 
 
