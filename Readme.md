@@ -26,14 +26,15 @@ This is a template for JavaScript module projects.
 
 ## Options (* = required)
 
-- source *
+- source * (file or media URL)
 - startpoint (number, seconds)
 - skipTime (number, seconds)
 - speedIncrement (number, seconds)
-- container*: element
-- buttons
+- container*: element (eg. grabbed using querySelector)
+- buttons (selectors or elements)
     - playPause
     - speedSlider
+    
 - onReady: function
 - onChange: function(argument: name of function which called it)
 - onDisableSpeedChange: function
@@ -58,7 +59,7 @@ This is a template for JavaScript module projects.
 - getTime
 - setTime (same as skipTo)
 - getDuration
-- parseYoutubeURL
+- parseYoutubeURL (don't need to initialise a new object to use)
 
 
 ## Read-only properties

@@ -33,6 +33,9 @@ var opts = {
 window.player;
 
 $('#url-input').change(function(){
+    if (window.player) {
+        window.player.reset();
+    }
     opts.source = $(this).val();
     if (window.player !== undefined) { window.player.reset(); }
     window.player = new oTplayer(opts);

@@ -11,6 +11,7 @@ var oTplayer = function(opts){
     this._rewindOnPlay = opts.rewindOnPlay || true;
     this._onReady = opts.onReady || function(){};
     this._onChange = opts.onChange || function(){};
+    this._onDisableSpeedChange = opts.onDisableSpeedChange || function(){};
     this._setupSpeed(opts);
     
     this.source = opts.source;
@@ -217,7 +218,11 @@ oTplayer.prototype.reset = function(){
     this._onChange = function(){};
     this.speed("reset");
     if (this.progressBar) {
-        this.progressBar.remove();
+        try {
+            this.progressBar.remove();
+        } catch (err) {
+            console.log(err);
+        }
     }
     $('#oTplayerEl').remove();
     $('#player-time').show();
@@ -231,6 +236,9 @@ oTplayer.prototype._addClickEvents = function(){
     $(buttons.playPause).click(function(){
         that.playPause();
     });
+    $(this.buttons.speedSlider).change(function(){
+        that.speed(this.valueAsNumber);
+    });
 };
 
 
@@ -239,6 +247,7 @@ oTplayer.prototype.disableSpeedChange = function(){
         return false;
     };
     this.speedChangeDisabled = true;
+    this._onDisableSpeedChange();
 };
 
 
@@ -346,6 +355,7 @@ oTplayer.prototype.parseYoutubeURL = function(url){
     }
     return false;
 };
+oTplayer.parseYoutubeURL = oTplayer.prototype.parseYoutubeURL;
 
 oTplayer.prototype._setYoutubeTitle = function(id){
     var url = 'http://gdata.youtube.com/feeds/api/videos/'+id+'?v=2&alt=json-in-script&callback=?';

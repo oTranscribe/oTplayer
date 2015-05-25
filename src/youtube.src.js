@@ -100,6 +100,7 @@ oTplayer.prototype.parseYoutubeURL = function(url){
     }
     return false;
 };
+oTplayer.parseYoutubeURL = oTplayer.prototype.parseYoutubeURL;
 
 oTplayer.prototype._setYoutubeTitle = function(id){
     var url = 'http://gdata.youtube.com/feeds/api/videos/'+id+'?v=2&alt=json-in-script&callback=?';
