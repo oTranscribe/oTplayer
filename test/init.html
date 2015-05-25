@@ -49,8 +49,8 @@
             },
             onReady: function(){
                 assert.equal( $('#slider').attr('min'), 0.5 );
-                done();
                 this.reset();
+                done();
             }
         }
         var player = new oTplayer(opts);
@@ -64,8 +64,8 @@
             container: $('#media')[0],
             onReady: function(){
                 assert.ok( this !== undefined );
-                done();
                 this.reset();
+                done();
             }
         }
         var player = new oTplayer(opts);
@@ -82,8 +82,8 @@
                 var that = this;
                 setTimeout(function(){
                     assert.equal( that.getTime(), 30 );
-                    done();
                     that.reset();
+                    done();
                 },50);
             }
         }
@@ -99,8 +99,8 @@
             container: $('#media')[0],
             onChange: function(event){
                 assert.equal( event, 'skipTo' );
-                done();
                 this.reset();
+                done();
             }
         }
         var player = new oTplayer(opts);

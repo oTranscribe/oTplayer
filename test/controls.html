@@ -44,7 +44,43 @@
             player.setTime(10);
         },10);
     });
-   
+    
+    QUnit.test( "getTime", function( assert ) {
+        assert.expect(3);
+        var done = assert.async();
+        var tests = 0;
+        var opts = {
+            source: 'http://ejb.github.io/progressor.js/demos/echoplex.mp3',
+            container: $('#media')[0],
+            onChange: function(event){
+                assert.equal( event, 'skipTo' );
+                tests++;
+                if (tests > 1) {
+                    assert.equal( this.getTime(), 120 );
+                    this.reset();
+                    done();
+                }
+            }
+        }
+        var player = new oTplayer(opts);
+        player.skipTo(10);
+        setTimeout(function(){
+            player.setTime(120);
+        },10);
+    });
+    
+    QUnit.test( "reset", function( assert ) {
+        var tests = 0;
+        var opts = {
+            source: 'http://ejb.github.io/progressor.js/demos/echoplex.mp3',
+            container: $('#media')[0]
+        }
+        var player = new oTplayer(opts);
+        player.reset();
+        assert.equal( $('#media')[0].innerHTML, '' );
+        assert.equal( $('audio, video').length, 0 );
+    });
+    
 
   </script>
 </body>
