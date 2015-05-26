@@ -1,4 +1,4 @@
-/*! otplayer v1.0.0 */
+/*! otplayer v1.1.0 */
 (function(){
 'use strict';
 

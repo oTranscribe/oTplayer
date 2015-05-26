@@ -101,6 +101,14 @@ This should work with anything that [supports the File API](http://caniuse.com/#
 
 ## Version history
 
+### v1.1.0
+
+May 26, 2015
+
+- Add getSpeed() method
+- Bugfixes
+
+
 ### v1.0.0
 
 May 25, 2015
