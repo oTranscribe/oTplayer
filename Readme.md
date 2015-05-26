@@ -2,6 +2,8 @@
 
 HTML5 audio/video player for [oTranscribe](https://github.com/otranscribe/otranscribe). Requires jQuery and [progressor.js](https://github.com/ejb/progressor.js).
 
+oTplayer is a bring-your-own-interface component. See [this demo](http://otranscribe.com/oTplayer/examples/basic-player.html) for an example of a very basic GUI player.
+
 ## How to use
 
 With a parent element (in this case, a div with class '.player-container') and a media source (either a URL, or an HTML5 [File object](https://developer.mozilla.org/en/docs/Web/API/File) from local upload):
@@ -59,6 +61,7 @@ player.reset();
 - `skipTo(seconds)`: Skip to a point in media, in seconds.
 - `skip(direction)`: Jump either `'backwards'` or `'forwards'` in time, as determined by `skipTime` option.
 - `speed(newSpeed)`: Speed playback `'up'` or `'down'`, or `'reset'` to return to `1`. Can also enter a number instead (eg. `0.5`, `2`).
+- `getSpeed()`: Get current playback speed. `1` is normal speed.
 - `getTime()`: Get current playback time, in seconds.
 - `setTime(seconds)`: Alias for `skipTo()`.
 - `getDuration()`: Get length of media, in seconds.

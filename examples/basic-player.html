@@ -1,0 +1,110 @@
+<h1><a href="https://github.com/oTranscribe/oTplayer">oTplayer</a> basic demo</h1>
+
+<p>Here's some URLs to try out:</p>
+<input class="example-url" value="http://ejb.github.io/progressor.js/demos/echoplex.mp3">
+<input class="example-url" value="https://www.youtube.com/watch?v=nkBQpoaDhF4">
+<input class="example-url" value="http://ejb.github.io/progressor.js/demos/physics.mp4">
+
+<p><label>Enter URL of MP3 file or YouTube video here... <input id="url-input"></label><p>
+
+<div id="media"></div>
+
+<div class="controls">
+    
+    <div id="player-hook"></div>
+    <div id="player-time"></div>
+    
+    <button class="playPause">play/pause</button>
+    <button class="play">play</button>
+    <button class="pause">pause</button>
+    <button class="back">back</button>
+    <button class="forward">forward</button>
+    <button class="speed-down">speed down</button>
+    <button class="speed-up">speed up</button>
+    <button class="reset">reset player</button>
+    <div class="current-speed"></div>
+</div>
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="http://ejb.github.io/progressor.js/progressor.js" type="text/javascript" charset="utf-8"></script>
+<script src="../dist/otplayer.js" type="text/javascript" charset="utf-8"></script>
+<script>
+
+var opts = {
+    container: $('#media')[0],
+    skipTime: 1.5,
+    startpoint: 0,
+    buttons: {
+        playPause: '.playPause'
+    },
+    onReady: function(e){
+        $('.controls').show();
+    }
+}
+
+$('#url-input').change(function(){
+    if (window.player) {
+        window.player.reset();
+    }
+    opts.source = $(this).val();
+    if (window.player) { window.player.reset(); }
+    window.player = new oTplayer(opts);
+});
+
+$('.play').click(function(){
+    player.play();
+});
+
+$('.pause').click(function(){
+    player.pause();
+});
+
+$('.back').click(function(){
+    player.skip('back');
+});
+
+$('.forward').click(function(){
+    player.skip('forward');
+});
+
+$('.speed-up').click(function(){
+    player.speed('up');
+});
+$('.speed-down').click(function(){
+    player.speed('down');
+});
+$('.reset').click(function(){
+    player.reset();
+    $('.controls').hide();
+    $('#url-input').val('');
+});
+
+setInterval(function(){
+    if (window.player) {
+        $('.current-speed').text( 'Speed: '+window.player.getSpeed()+'x' );
+    }
+},50);
+
+</script>
+
+<style>
+.example-url {
+    width: 50%;
+}
+.controls {
+    display: none;
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+.progressor {
+    height: 5px;
+    width: 100%;
+    background: #ccc;
+}
+.progressor-progress {
+    height: 100%;
+    background: #777;
+}
+</style>
+
+

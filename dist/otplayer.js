@@ -135,7 +135,7 @@ oTplayer.prototype.pause = function(){
         } catch (err) {
             //
         }
-    } else {
+    } else if (this.element) {
         this.element.pause();
     }
     this.paused = true;
@@ -146,17 +146,19 @@ oTplayer.prototype.play = function(){
     if (this._rewindOnPlay) {
         this.skip('backwards');
     }
-    playPauseButton.addClass('playing');
     if(this.format === 'youtube') {
         try {
             this._ytEl.playVideo();
+            this.paused = false;
+            playPauseButton.addClass('playing');
         } catch(err) {
             //
         }
-    } else {
+    } else if (this.element) {
         this.element.play();
+        this.paused = false;
+        playPauseButton.addClass('playing');
     }
-    this.paused = false;
     this._onChange('play');
 };
 oTplayer.prototype.playPause = function(){
@@ -184,7 +186,7 @@ oTplayer.prototype.skip = function(direction){
     if (direction === "backwards"){
         mod = -1;
     }
-    this.skipTo( this.element.currentTime + (this.skipTime*mod) );
+    this.skipTo( this.getTime() + (this.skipTime*mod) );
 };
 oTplayer.prototype.speed = function(newSpeed){
     var el = this.element;
@@ -196,7 +198,7 @@ oTplayer.prototype.speed = function(newSpeed){
     var step = this.speedIncrement;
     
     var newSpeedNumber;
-    var currentSpeed = this.element.playbackRate;
+    var currentSpeed = this.getSpeed();
     if ((newSpeed === "up") && (currentSpeed < max)){
         newSpeedNumber = currentSpeed+step;
     } else if ((newSpeed === "down") && (currentSpeed > min)){
@@ -217,21 +219,36 @@ oTplayer.prototype.speed = function(newSpeed){
     }
     this._onChange('speed');
 };
-oTplayer.prototype.getTime = function(){
-    var that = this;
-    if (this.format === 'youtube') {
-        return this._ytEl.getCurrentTime();
-    } else {
-        return this.element.currentTime;
+oTplayer.prototype.getSpeed = function(){
+    if ((this.format === 'youtube') && this._ytEl && this._ytEl.getPlaybackRate) {
+        return this._ytEl.getPlaybackRate();
+    } else if (this.format === 'youtube'){
+        return 1;
+    }
+    if (this.element) {
+        return this.element.playbackRate;
     }
 };
+oTplayer.prototype.getTime = function(){
+    var that = this;
+    if ((this.format === 'youtube') && this._ytEl && this._ytEl.getCurrentTime) {
+        return this._ytEl.getCurrentTime();
+    } else if (this.element && this.element.currentTime) {
+        return this.element.currentTime;
+    }
+    return 0;
+};
 oTplayer.prototype.getDuration = function(){
-    return this.element.duration;
+    if (this.element) {
+        return this.element.duration;
+    }
 };
 
 oTplayer.prototype.reset = function(){
     this._onChange = function(){};
     this.speed("reset");
+    this.element = undefined;
+    this._ytEl = undefined;
     if (this.progressBar) {
         try {
             this.progressBar.remove();
