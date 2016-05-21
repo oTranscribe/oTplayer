@@ -101,6 +101,12 @@ This should work with anything that [supports the File API](http://caniuse.com/#
 
 ## Version history
 
+### v1.1.1
+
+May 21, 2016
+
+- Allow 'back' as option for skip() method
+
 ### v1.1.0
 
 May 26, 2015

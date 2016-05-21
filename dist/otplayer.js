@@ -1,4 +1,4 @@
-/*! otplayer v1.1.0 */
+/*! otplayer v1.1.1 */
 (function(){
 'use strict';
 
@@ -183,7 +183,7 @@ oTplayer.prototype.skipTo = function(time){
 oTplayer.prototype.setTime = oTplayer.prototype.skipTo;
 oTplayer.prototype.skip = function(direction){
     var mod = 1;
-    if (direction === "backwards"){
+    if ((direction === "backwards") || direction === "back"){
         mod = -1;
     }
     this.skipTo( this.getTime() + (this.skipTime*mod) );
